@@ -1,32 +1,40 @@
 #include<stdio.h>
 #include<math.h>
 
-float f(float x){
-   return (pow(x,2)+x-2);   //f(x)
-}
+/* f(x) = x^2 + x - 2
+   g(x) = 2 / (x + 1)
+*/
 
-float g(float x){      //g(x)
-    return (2/(x+1));
+float g(float x){
+    return (2 / (x + 1));
 }
 
 int main()
 {
-    int i= 1;
-    float x1,a,b;
-    printf("Enter the initial guess:");     //initial guess
-    scanf("%f",&x1);
+    int i = 1;
+    float x1, x2;
+
+    printf("Enter the initial guess: ");
+    scanf("%f", &x1);
+
+    // Header
+    printf("\nIter\t   x(i)\t\t   x(i+1)\n");
 
     do
     {
-        a = f(x1);
-        b = g(x1);
-        if(fabs(a-b)<0.0001){    //difference checking
+        x2 = g(x1);
+
+        printf("%d\t%.6f\t%.6f\n", i, x1, x2);
+
+        if (fabs(x2 - x1) < 0.0001)   // convergence check
             break;
-        }
-        x1 = b;
-        printf("\nIteration %d x :%.4f",i, x1);   //value of x (i+1)
+
+        x1 = x2;
         i++;
-    } while (i<10);
-    printf("\nRoot: %.4f",x1);             //final approximate root
-    return 0; 
+
+    } while (i < 10);
+
+    printf("\nRoot:\t%.6f\n", x2);
+
+    return 0;
 }
