@@ -4,13 +4,13 @@
 #include<conio.h>
 
 //creating a function for equation
-float fun(float a){
-    return(pow(a,3)-2*a-5);
+float fun(float x){
+    return(pow(x,3)-2*x-5);
 }
 
 int main()
 {
-    float x1,x2,x3,a,b,c;
+    float x1,x2,x0,a,b,c;
     int i;
 
     //Prompting for inputs until correct guesses
@@ -24,22 +24,23 @@ int main()
          }
         } while(a*b >0);
 
+         printf("iter\tx1\tx2\tx0\tf(x0)\n");
         //Upto 10th iteration
         for(i=1; i <=10; i++){
-            x3 =(x1+x2)/2;
-            printf("Iteration %d = %f\n",i,x3);
-            c=fun(x3);
+            x0 =(x1+x2)/2;
+            c=fun(x0);
+            printf("%d\t %.4f\t %.4f\t %.4f\t %.4f\n",i,x1,x2,x0,c);
 
             if(a*c<0){
-                x2=x3;
+                x2=x0;
                 b=c;
             }
             else{
-                x1=x3;
+                x1=x0;
                 a=c;
             }
             i++;
         }
-        printf("the root is %f",x1);
+        printf("\nThe root is %f",x1);
         return 0;
-    }
+     }
