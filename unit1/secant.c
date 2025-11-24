@@ -8,7 +8,7 @@ float secant(float x1, float x2){
     return (x1*f(x2)-x2*f(x1))/(f(x2)-f(x1));
 }
 
-int main(){
+int main(){ 
     float x1,x2,x3,eps;
     int i=1;
 
