@@ -3,7 +3,7 @@
 #include<math.h>
 
 float f(float x){
-    return x*x;
+    return 1/(1+pow(x,2));
 }
 
 int main(){
@@ -13,13 +13,8 @@ int main(){
     printf("Enter a and b: ");
     scanf("%f %f",&a,&b);
 
-    printf("Enter even number of intervals: ");
+    printf("Enter number of intervals: ");
     scanf("%d",&n);
-
-    if(n%2!=0){
-        printf("n must be even.\n");
-        return 0;
-    }
 
     h = (b-a)/n;
 

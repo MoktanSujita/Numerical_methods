@@ -6,14 +6,11 @@ float function(float x) {
 }
 
 int main() {
-    int k, i, j, n;
+    int k, i, j, n=3;
     float a, b, h;
     
     printf("Enter the lower and upper limit:\n");
     scanf("%f%f", &a, &b);
-    
-    printf("Enter the number of Romberg iterations (e.g., 4):\n");
-    scanf("%d", &n);  // Number of Romberg levels
     
     // Romberg table
     float R[n][n];
@@ -40,15 +37,6 @@ int main() {
         for (i = j; i < n; i++) {
             R[i][j] = (pow(4, j) * R[i][j - 1] - R[i - 1][j - 1]) / (pow(4, j) - 1);
         }
-    }
-    
-    // Print the Romberg table
-    printf("\nRomberg Integration Table:\n");
-    for (i = 0; i < n; i++) {
-        for (j = 0; j <= i; j++) {
-            printf("%10.6f\t", R[i][j]);
-        }
-        printf("\n");
     }
     
     printf("\nRomberg Integration Result (R[%d][%d]) = %.6f\n", n-1, n-1, R[n-1][n-1]);

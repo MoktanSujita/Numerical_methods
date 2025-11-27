@@ -4,7 +4,7 @@
 #include<math.h>
 
 float f(float x){
-    return x*x;   // Example function
+    return (1/(1+x*x));   // Example function
 }
 
 int main(){

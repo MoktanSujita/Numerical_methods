@@ -3,7 +3,7 @@
 #include<math.h>
 
 float f(float x){
-    return x*x;
+    return (pow(x,3)+1);
 }
 
 int main(){

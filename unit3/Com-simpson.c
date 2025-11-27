@@ -1,9 +1,9 @@
-// 3/8 composite simpson rule
+// 3/8 simpson's composite
 #include<stdio.h>
 #include<math.h>
 
 float f(float x){
-    return x*x;
+    return 1/(1 + x*x);  // correct function
 }
 
 int main(){
@@ -17,7 +17,7 @@ int main(){
     scanf("%d",&n);
 
     if(n%3!=0){
-        printf("n must be multiple of 3.\n");
+        printf("n must be a multiple of 3.\n");
         return 0;
     }
 
@@ -31,6 +31,6 @@ int main(){
             sum += 3*f(a+i*h);
     }
 
-    printf("Result = %.4f\n",(3*h/8)*sum);
+    printf("Result = %.6f\n",(3*h/8)*sum);
     return 0;
 }
