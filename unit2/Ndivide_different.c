@@ -4,17 +4,17 @@
 int main()
     {
         int i,j,n,k;
-        printf("\nEnter the value of n : ");
+        printf("Enter the value of n : ");
         scanf("%d",&n);
 
         float X[n],Y[n],d[n][n],x,t,y=0,s=1;
         for(i=0;i<n;i++){
 
-            printf("\nEnter the value of X[i] and Y[i] : \n");
+            printf("Enter the value of X[%d] and Y[%d] :",i,i);
                 scanf("%f%f",&X[i],&Y[i]);
         }
 
-        printf("\nEnter the value of x  : ");
+        printf("Enter the value of x  : ");
         scanf("%f",&x);
         for(j=0;j<n;j++)
         {
