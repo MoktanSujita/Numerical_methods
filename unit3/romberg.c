@@ -1,52 +1,57 @@
-#include<stdio.h>
-#include<math.h>
+#include <stdio.h>
+#include <math.h>
 
-float f(float x){
-    return (1/(1+x*x));   // example function
+float function(float x) {
+    return 1 / (1 + x);
 }
 
-float trapezoidal(float a, float b, int n){
-    float h, sum = 0.0;
-    int i;
+int main() {
+    int k, i, j, n;
+    float a, b, h;
     
-    h = (b - a) / n;
-    sum = f(a) + f(b);
+    printf("Enter the lower and upper limit:\n");
+    scanf("%f%f", &a, &b);
     
-    for(i = 1; i < n; i++){
-        sum += 2 * f(a + i*h);
+    printf("Enter the number of Romberg iterations (e.g., 4):\n");
+    scanf("%d", &n);  // Number of Romberg levels
+    
+    // Romberg table
+    float R[n][n];
+    
+    // R[0][0] = Trapezoidal rule with one interval
+    R[0][0] = (b - a) / 2 * (function(a) + function(b));
+    
+    // Compute the first column of Romberg table
+    for (i = 1; i < n; i++) {
+        h = (b - a) / pow(2, i);  // step size
+        float sum = 0.0;
+        
+        // sum f(a + (2k - 1)h) for k = 1 to 2^(i-1)
+        for (k = 1; k <= pow(2, i - 1); k++) {
+            sum += function(a + (2 * k - 1) * h);
+        }
+        
+        // Trapezoidal approximation for this level
+        R[i][0] = 0.5 * R[i - 1][0] + h * sum;
     }
     
-    return (h/2) * sum;
-}
-
-int main(){
-    float a, b, R[10][10];
-    int i, j;
-
-    printf("Enter lower and upper limits: ");
-    scanf("%f %f", &a, &b);
-
-    // First column (Trapezoidal approximations)
-    for(i = 0; i < 4; i++){
-        int n = pow(2, i);
-        R[i][0] = trapezoidal(a, b, n);
-    }
-
-    // Romberg calculation
-    for(i = 1; i < 4; i++){
-        for(j = 1; j <= i; j++){
-            R[i][j] = (pow(4,j)*R[i][j-1]-R[i-1][j-1])/(pow(4,j)-1);
+    // Romberg extrapolation
+    for (j = 1; j < n; j++) {
+        for (i = j; i < n; i++) {
+            R[i][j] = (pow(4, j) * R[i][j - 1] - R[i - 1][j - 1]) / (pow(4, j) - 1);
         }
     }
-
+    
+    // Print the Romberg table
     printf("\nRomberg Integration Table:\n");
-    for(i = 0; i < 4; i++){
-        for(j = 0; j <= i; j++){
-            printf("%f\t", R[i][j]);
+    for (i = 0; i < n; i++) {
+        for (j = 0; j <= i; j++) {
+            printf("%10.6f\t", R[i][j]);
         }
         printf("\n");
     }
-
-    printf("\nFinal Answer = %f\n", R[3][3]);
+    
+    printf("\nRomberg Integration Result (R[%d][%d]) = %.6f\n", n-1, n-1, R[n-1][n-1]);
+    
     return 0;
 }
